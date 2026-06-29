@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="scroll-stack.css">
     <style>
         /* ==================== CSS VARIABLES ==================== */
         /* 
@@ -683,76 +684,53 @@
 
         .experience-timeline {
             position: relative;
-            padding-left: 3rem;
+            padding-left: 0;
             max-width: 900px;
         }
 
         .experience-timeline::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(180deg, var(--accent) 0%, var(--accent-light) 100%);
-            border-radius: 2px;
+            content: none;
         }
 
         .experience-item {
             position: relative;
             margin-bottom: 3rem;
-            padding-left: 2.5rem;
+            padding-left: 0;
         }
 
-        .experience-item:last-child {
+        .experience-item:last-of-type {
             margin-bottom: 0;
         }
 
         .experience-item::before {
-            content: '';
-            position: absolute;
-            left: -3rem;
-            top: 0;
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background: var(--bg-primary);
-            border: 3px solid var(--accent);
-            transition: all 0.4s var(--ease-out-expo);
-            z-index: 1;
+            content: none;
         }
 
         .experience-item::after {
-            content: '';
-            position: absolute;
-            left: calc(-3rem + 3px);
-            top: 3px;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--accent);
-            transform: scale(0);
-            transition: transform 0.4s var(--ease-out-expo);
-        }
-
-        .experience-item:hover::before {
-            transform: scale(1.2);
-            box-shadow: 0 0 0 6px var(--accent-light);
-        }
-
-        .experience-item:hover::after {
-            transform: scale(1);
+            content: none;
         }
 
         .experience-card {
-            background-color: var(--bg-card);
+            background:
+                linear-gradient(160deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.82) 100%),
+                var(--gradient-subtle);
             padding: 2.25rem;
-            border-radius: 16px;
-            border: 1px solid var(--border);
+            border-radius: 20px;
+            border: 1px solid color-mix(in srgb, var(--accent) 22%, var(--border));
             transition: all 0.4s var(--ease-out-expo);
-            box-shadow: var(--shadow-sm);
+            box-shadow: 0 10px 30px rgba(44, 62, 54, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.8);
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(8px) saturate(110%);
+            -webkit-backdrop-filter: blur(8px) saturate(110%);
+        }
+
+        [data-theme="dark"] .experience-card {
+            background:
+                linear-gradient(160deg, rgba(37, 45, 41, 0.94) 0%, rgba(30, 37, 34, 0.88) 100%),
+                var(--gradient-subtle);
+            border: 1px solid color-mix(in srgb, var(--accent) 32%, var(--border));
+            box-shadow: 0 14px 36px rgba(0, 0, 0, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.06);
         }
 
         .experience-card::before {
@@ -760,21 +738,24 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 4px;
-            height: 100%;
-            background: var(--gradient-primary);
-            opacity: 0;
-            transition: opacity 0.4s var(--ease-out-expo);
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent 0%, var(--accent) 50%, transparent 100%);
+            opacity: 0.8;
+            transition: opacity 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo);
+            transform: scaleX(0.85);
+            transform-origin: center;
         }
 
         .experience-card:hover {
-            transform: translateY(-4px) translateX(4px);
-            box-shadow: var(--shadow-lg);
-            border-color: var(--border-hover);
+            transform: translateY(-8px);
+            box-shadow: 0 22px 46px rgba(44, 62, 54, 0.16);
+            border-color: color-mix(in srgb, var(--accent) 40%, var(--border-hover));
         }
 
         .experience-card:hover::before {
             opacity: 1;
+            transform: scaleX(1);
         }
 
         .experience-header {
@@ -798,6 +779,7 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
+            letter-spacing: 0.01em;
         }
 
         .experience-company::before {
@@ -1447,15 +1429,11 @@
             }
 
             .experience-timeline {
-                padding-left: 2rem;
+                padding-left: 0;
             }
 
             .experience-item {
-                padding-left: 2rem;
-            }
-
-            .experience-item::before {
-                left: -2rem;
+                padding-left: 0;
             }
 
             .projects-grid {
@@ -1553,18 +1531,12 @@
 
             /* Experience mobile */
             .experience-timeline {
-                padding-left: 1.5rem;
+                padding-left: 0;
             }
 
             .experience-item {
-                padding-left: 1.25rem;
+                padding-left: 0;
                 margin-bottom: 2rem;
-            }
-
-            .experience-item::before {
-                left: -1.5rem;
-                width: 12px;
-                height: 12px;
             }
 
             .experience-card {
@@ -1909,18 +1881,18 @@
     <!-- ==================== EXPERIENCE SECTION ==================== -->
     <section id="experience">
         <div class="section-header">
-            <div class="section-label">Career Journey</div>
             <h2 class="section-title">Professional Experience</h2>
             <p class="section-description">Building expertise through hands-on work in security testing, software engineering, and AI development</p>
         </div>
         
-        <div class="experience-timeline">
-            <div class="experience-item">
+        <div id="experienceScrollStack" class="experience-stack scroll-stack-scroller use-window-scroll">
+            <div class="scroll-stack-inner experience-timeline">
+            <div class="experience-item scroll-stack-card">
                 <div class="experience-card">
                     <div class="experience-header">
                         <h3 class="experience-title">Software Security Tester (Intern)</h3>
                         <p class="experience-company">National CERT</p>
-                        <span class="experience-date">📅 July - August 2025</span>
+                        <span class="experience-date"> July - August 2025</span>
                     </div>
                     <ul>
                         <li>Executed comprehensive vulnerability assessments and penetration tests using industry-standard tools including Nmap, Burp Suite, and Metasploit</li>
@@ -1929,26 +1901,26 @@
                 </div>
             </div>
 
-            <div class="experience-item">
+            <div class="experience-item scroll-stack-card">
                 <div class="experience-card">
                     <div class="experience-header">
                         <h3 class="experience-title">Software Engineer (Intern)</h3>
                         <p class="experience-company">Lynx Info</p>
-                        <span class="experience-date">📅 June - August 2025</span>
+                        <span class="experience-date"> June - August 2025</span>
                     </div>
                     <ul>
-                        <li>Designed and deployed a Flask-based web bot detection pipeline with behavioral tracking and Selenium-based simulations</li>
-                        <li>Enhanced detection accuracy through advanced ML classification with gesture analysis, idle time tracking, and interaction pattern recognition</li>
+                        <li>Curated a custom 596-entry dataset by building Selenium scripts to capture bot entries; developed data cleaning and preprocessing pipelines to handle missing data and balance target classes</li>
+                        <li>Trained and tuned Logistic Regression, Random Forest, and XGBoost classifiers; optimized hyperparameters to maximize accuracy and minimize false negatives</li>
                     </ul>
                 </div>
             </div>
 
-            <div class="experience-item">
+            <div class="experience-item scroll-stack-card">
                 <div class="experience-card">
                     <div class="experience-header">
                         <h3 class="experience-title">Software Engineer (Intern)</h3>
                         <p class="experience-company">NLC</p>
-                        <span class="experience-date">📅 August - September 2024</span>
+                        <span class="experience-date"> August - September 2024</span>
                     </div>
                     <ul>
                         <li>Developed a comprehensive task registration system that improved workflow efficiency in a corporate environment</li>
@@ -1956,13 +1928,14 @@
                     </ul>
                 </div>
             </div>
+            <div class="scroll-stack-end"></div>
+            </div>
         </div>
     </section>
 
     <!-- ==================== PROJECTS SECTION ==================== -->
     <section id="projects">
         <div class="section-header">
-            <div class="section-label">Portfolio</div>
             <h2 class="section-title">Featured Projects</h2>
             <p class="section-description">Showcasing my work in security tools, AI applications, and enterprise software</p>
         </div>
@@ -2072,7 +2045,6 @@
     <!-- ==================== SKILLS SECTION ==================== -->
     <section id="skills">
         <div class="section-header">
-            <div class="section-label">Expertise</div>
             <h2 class="section-title">Technical Skills</h2>
         </div>
         
@@ -2156,7 +2128,6 @@
     <!-- ==================== CONTACT SECTION ==================== -->
     <section id="contact">
         <div class="section-header">
-            <div class="section-label">Let's Connect</div>
             <h2 class="section-title">Get In Touch</h2>
             <p class="section-description">I'm always open to discussing new projects, opportunities, or collaborations</p>
         </div>
@@ -2218,6 +2189,8 @@
     </footer>
 
     <!-- ==================== JAVASCRIPT ==================== -->
+    <script src="https://unpkg.com/lenis@1.3.13/dist/lenis.min.js"></script>
+    <script src="scroll-stack.js"></script>
     <script src="letter-glitch.js"></script>
     <script>
         // ==================== CURSOR GLOW EFFECT ====================
@@ -2238,6 +2211,23 @@
                 outerVignette: true,
                 smooth: true,
                 glitchColors: ['#2b4539', '#61dca3', '#61b3dc']
+            });
+        }
+
+        const experienceScrollStack = document.getElementById('experienceScrollStack');
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (experienceScrollStack && window.initScrollStack && !reducedMotion) {
+            window.initScrollStack(experienceScrollStack, {
+                useWindowScroll: true,
+                itemDistance: 100,
+                itemScale: 0.028,
+                itemStackDistance: 28,
+                stackPosition: '26%',
+                scaleEndPosition: '14%',
+                baseScale: 0.92,
+                scaleDuration: 0.65,
+                rotationAmount: 0,
+                blurAmount: 0.12
             });
         }
 
@@ -2345,7 +2335,7 @@
         });
 
         // Stagger children animations for grids
-        const staggerContainers = document.querySelectorAll('.projects-grid, .skills-grid, .experience-timeline');
+        const staggerContainers = document.querySelectorAll('.projects-grid, .skills-grid');
         
         const staggerObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
