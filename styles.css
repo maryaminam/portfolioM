@@ -733,6 +733,52 @@
       color: var(--accent);
     }
 
+    .shape-blur-surface {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .shape-blur-surface > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .shape-blur-surface::before {
+      content: "";
+      position: absolute;
+      inset: -35%;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at var(--shape-x, 50%) var(--shape-y, 50%), rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0) 34%),
+        radial-gradient(circle at 20% 20%, rgba(15, 118, 110, 0.22), rgba(15, 118, 110, 0) 42%),
+        radial-gradient(circle at 82% 32%, rgba(97, 220, 163, 0.16), rgba(97, 220, 163, 0) 38%),
+        radial-gradient(circle at 50% 80%, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0) 40%);
+      filter: blur(42px);
+      opacity: 0.6;
+      transform: scale(1.08);
+      transition: opacity 180ms ease, transform 180ms ease;
+      mix-blend-mode: screen;
+    }
+
+    html[data-theme="light"] .shape-blur-surface::before {
+      mix-blend-mode: multiply;
+    }
+
+    html[data-theme="dark"] .shape-blur-surface::before {
+      background:
+        radial-gradient(circle at var(--shape-x, 50%) var(--shape-y, 50%), rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0) 34%),
+        radial-gradient(circle at 20% 20%, rgba(97, 220, 163, 0.18), rgba(97, 220, 163, 0) 42%),
+        radial-gradient(circle at 82% 32%, rgba(97, 179, 220, 0.16), rgba(97, 179, 220, 0) 38%),
+        radial-gradient(circle at 50% 80%, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0) 40%);
+      opacity: 0.5;
+    }
+
+    .shape-blur-surface:hover::before {
+      opacity: 0.82;
+      transform: scale(1.12);
+    }
+
     .teaser-section {
       padding-top: 0;
     }

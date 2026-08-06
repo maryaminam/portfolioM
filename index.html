@@ -500,6 +500,29 @@
     let countersStarted = false;
     let themePreference = readStoredTheme();
 
+    const blurSurfaces = document.querySelectorAll(
+      '.stat-card, .glitch-panel, .focus-panel, .case-study, .project-card, .teaser-banner, .skill-tabs, .skill-panels, .contact-card, .theme-toggle'
+    );
+
+    blurSurfaces.forEach((surface) => {
+      surface.classList.add('shape-blur-surface');
+      surface.style.setProperty('--shape-x', '50%');
+      surface.style.setProperty('--shape-y', '50%');
+
+      surface.addEventListener('pointermove', (event) => {
+        const rect = surface.getBoundingClientRect();
+        const x = ((event.clientX - rect.left) / rect.width) * 100;
+        const y = ((event.clientY - rect.top) / rect.height) * 100;
+        surface.style.setProperty('--shape-x', `${Math.max(0, Math.min(100, x)).toFixed(2)}%`);
+        surface.style.setProperty('--shape-y', `${Math.max(0, Math.min(100, y)).toFixed(2)}%`);
+      });
+
+      surface.addEventListener('pointerleave', () => {
+        surface.style.setProperty('--shape-x', '50%');
+        surface.style.setProperty('--shape-y', '50%');
+      });
+    });
+
     function readStoredTheme() {
       try {
         const stored = localStorage.getItem('routelogix-theme');
@@ -736,4 +759,3 @@
   </script>
 </body>
 </html>
-
